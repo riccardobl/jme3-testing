@@ -13,7 +13,7 @@ jobs:
     name: Run tests
     runs-on: ubuntu-latest
     container:
-      image: riccardoblb/buildenv-jme3:javagl   
+      image: riccardoblb/buildenv:javagl   
     steps:
       - name: Clone the repo
         uses: actions/checkout@v1     
