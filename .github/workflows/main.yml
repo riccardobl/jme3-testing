@@ -1,0 +1,40 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request 
+# events but only for the master branch
+on:  
+  push:
+  pull_request:
+  
+jobs:
+  run:
+    name: Run tests
+    runs-on: ubuntu-latest
+    container:
+      image: riccardoblb/buildenv-jme3:javagl   
+    steps:
+      - name: Clone the repo
+        uses: actions/checkout@v1     
+        with:
+          fetch-depth: 1
+          
+      - name: Validate the Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+      
+      - name: Test
+        run: |
+          ./gradlew test
+
+      - name: Upload lwjgl3 reports
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: reports-lwjgl3
+          path: tests-lwjgl3/build/reports
+          
+      - name: Upload lwjgl2 reports
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: reports-lwjgl2
+          path: tests-lwjgl2/build/reports
