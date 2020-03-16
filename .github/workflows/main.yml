@@ -25,6 +25,7 @@ jobs:
       
       - name: Test
         run: |
+          chown -R $USER:$USER $HOME/
           /init.sh
           ./gradlew tests-lwjgl3:test -i
 
