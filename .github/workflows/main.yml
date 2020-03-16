@@ -25,16 +25,12 @@ jobs:
       
       - name: Test
         run: |
-          ./gradlew test
+          ./gradlew tests-lwjgl3:test
 
       - name: Upload lwjgl3 reports
         uses: actions/upload-artifact@v1.0.0
+        if: always()
         with:
           name: reports-lwjgl3
           path: tests-lwjgl3/build/reports
           
-      - name: Upload lwjgl2 reports
-        uses: actions/upload-artifact@v1.0.0
-        with:
-          name: reports-lwjgl2
-          path: tests-lwjgl2/build/reports
