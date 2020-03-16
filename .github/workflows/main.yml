@@ -12,22 +12,23 @@ jobs:
   run:
     name: Run tests
     runs-on: ubuntu-latest
-    container:
-      image: riccardoblb/buildenvs:javagl 
     steps:
       - name: Clone the repo
         uses: actions/checkout@v1     
         with:
           fetch-depth: 1
           
+          
       - name: Validate the Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
       
+      - name: setup-docker
+        uses: docker-practice/actions-setup-docker@0.0.1 
+      
       - name: Test
         run: |
-          chown -R $USER:$USER $HOME/
-          /init.sh
-          ./gradlew tests-lwjgl3:test -i
+          chmod +x run.sh
+          ./run.sh tests-lwjgl3:test -i
 
       - name: Upload lwjgl3 reports
         uses: actions/upload-artifact@v1.0.0
