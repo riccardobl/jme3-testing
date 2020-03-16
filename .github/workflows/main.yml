@@ -28,7 +28,7 @@ jobs:
       - name: Test
         run: |
           chmod +x run.sh
-          ./run.sh tests-lwjgl3:test -i
+          NO_INTERRACTIVE=1 ./run.sh tests-lwjgl3:test -i
 
       - name: Upload lwjgl3 reports
         uses: actions/upload-artifact@v1.0.0
