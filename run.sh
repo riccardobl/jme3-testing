@@ -45,9 +45,15 @@ fi
 RUNTIME="sudo docker"
 if [ "`which podman`" != "" ];then   RUNTIME="podman"; fi
 
+ARGS=""
+if [ "$NO_INTERRACTIVE" = "" ];
+then
+    ARGS="$ARGS -it"
+fi
+
 $RUNTIME pull "$USE_IMAGE"
 cmd="$RUNTIME run -v\"$PWD:/workdir\" -eGRADLE_USER_HOME=/workdir/build.cache \
 -v\"$CURRENT_GRADLE_HOME/init.d:/workdir/build.cache/init.d\" \
--w /workdir $RUN_AS --rm -it $USE_IMAGE ./gradlew $@"
+-w /workdir $RUN_AS --rm $ARGS $USE_IMAGE ./gradlew $@"
 echo $cmd
 eval $cmd
